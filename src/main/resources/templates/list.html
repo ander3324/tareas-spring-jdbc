@@ -9,6 +9,7 @@ and open the template in the editor.
         <title th:text="${titulo}">TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="/css/estilo.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <h2 th:text="${titulo}"></h2>
@@ -18,18 +19,24 @@ and open the template in the editor.
                     <th th:text="${'Número'}"></th>
                     <th th:text="${'Descripción'}"></th>
                     <th th:text="${'Fecha'}"></th>
-                    <th th:text="${'Estado'}"></th>
+                    <th th:text="${'Acciones'}"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="t : ${tareas}">
-                    <td th:text="${t.id}"></td>
-                    <td th:text="${t.descripcion}"></td>
-                    <td th:text="${t.fecha}"></td>
-                    <td th:text="${t.cumplida}"></td>
+                <tr th:each="t : ${tareas}" >
+                    <td th:text="${t.id}" th:class="${t.cumplida} ? 'tachado' : ''"></td>
+                    <td th:text="${t.descripcion}" th:class="${t.cumplida} ? 'tachado' : ''"></td>
+                    <td th:text="${t.fecha}" th:class="${t.cumplida} ? 'tachado' : ''"></td>
+                   
+                    <td>
+                        <a th:href = "@{/form}">Editar</a>
+                        <a th:href = "@{/cambiar/} + ${t.id}">Finalizar</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
 
+        <a th:href="@{/form}" >Nuevo</a>
+        
     </body>
 </html>

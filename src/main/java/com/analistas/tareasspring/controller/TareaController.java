@@ -12,6 +12,8 @@ import com.analistas.tareasspring.model.service.UsuarioServiceImpl;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,5 +38,23 @@ public class TareaController {
         model.addAttribute("tareas", tareas);
         
         return "list";
+    }
+    
+    //@RequestMapping(value="/form", method = RequestMethod.GET)
+    //Alias de RequestMapping tipo GET
+    @GetMapping("/form")
+    public String abrirFormulario(Model model) {
+        
+        model.addAttribute("titulo", "Nueva Tarea");
+        model.addAttribute("subtitulo", "Completar los Campos:");
+        
+        return "form";
+    }
+    
+    @GetMapping("/cambiar/{id}")
+    public String finalizarTarea(@PathVariable int id) {
+        
+        tarServ.cambiarEstado(id);
+        return "redirect:/tareas";
     }
 }
