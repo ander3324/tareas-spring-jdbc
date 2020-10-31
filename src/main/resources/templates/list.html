@@ -13,6 +13,15 @@ and open the template in the editor.
     </head>
     <body>
         <h2 th:text="${titulo}"></h2>
+
+        <fieldset style="width: 220px;">
+            <legend>Buscar Tareas</legend>
+            <form action="#" method="get">
+                <input type = "search" placeholder="Ingrese la descripción" />
+                <input type="submit" value="Buscar" />
+            </form>
+        </fieldset>
+        <br>
         <table border="1">
             <thead>
                 <tr >
@@ -26,17 +35,19 @@ and open the template in the editor.
                 <tr th:each="t : ${tareas}" >
                     <td th:text="${t.id}" th:class="${t.cumplida} ? 'tachado' : ''"></td>
                     <td th:text="${t.descripcion}" th:class="${t.cumplida} ? 'tachado' : ''"></td>
-                    <td th:text="${t.fecha}" th:class="${t.cumplida} ? 'tachado' : ''"></td>
-                   
+                    <td th:text="${#temporals.format(t.fecha, 'dd/MM/yyyy')}" th:class="${t.cumplida} ? 'tachado' : ''"></td>
+
                     <td>
-                        <a th:href = "@{/form}">Editar</a>
-                        <a th:href = "@{/cambiar/} + ${t.id}">Finalizar</a>
+                        <a th:href = "@{/form/} + ${t.id}">Editar</a>
+                        <a th:href = "@{/cambiar/} + ${t.id}">
+                            <span th:text="${t.cumplida} ? 'Habilitar' : 'Tachar'"></span>
+                        </a>
                     </td>
                 </tr>
             </tbody>
         </table>
 
         <a th:href="@{/form}" >Nuevo</a>
-        
+
     </body>
 </html>

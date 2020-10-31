@@ -43,5 +43,10 @@ public class TareaServiceImpl implements ITareaService{
     public void cambiarEstado(int idTarea) {
         repo.updateCumplida(idTarea);
     }
+
+    @Override
+    public Tarea buscarPorId(int id) {
+        return repo.selectById(id).get(0);
+    }
     
 }

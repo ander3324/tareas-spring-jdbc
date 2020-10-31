@@ -17,6 +17,8 @@ public interface ITareaService {
     
     public List<Tarea> listarPorUsuario(Usuario usuario);
     
+    public Tarea buscarPorId(int id);
+    
     public void guardar(Tarea tarea);
     
     public void borrar(int id);

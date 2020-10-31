@@ -12,9 +12,22 @@ and open the template in the editor.
     </head>
     <body>
         <h2 th:text="${titulo}"></h2>
-        <fieldset>
+        <fieldset style="width: 270px;">
             <legend th:text="${subtitulo}"></legend>
-            
+            <form action="#" method="post" th:object="${tarea}">
+                
+                <label for="descripcion">Descripción: </label>
+                <input id="descripcion" type="text" th:field="*{descripcion}" />
+                <br><br>
+                
+                <label for="fecha">Fecha: </label>
+                <input id="fecha" type="date" th:field="*{fecha}" />
+                <br><br>
+                
+                <input type="submit" value="Guardar" />
+                <input type="button" value="Cancelar" onclick="location.href='/tareas'" />
+           
+            </form>
         </fieldset>
     </body>
 </html>

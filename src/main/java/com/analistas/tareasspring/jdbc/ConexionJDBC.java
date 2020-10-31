@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class ConexionJDBC {
     public Connection getConnection() {
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost/tareas_db", "root", "wacaballa"); //Cadena de conexión...
+            return DriverManager.getConnection("jdbc:mysql://localhost/tareas_db?serverTimezone=UTC", "root", "wacaballa"); //Cadena de conexión...
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
             return null;

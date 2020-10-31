@@ -70,6 +70,48 @@ public class TareaRepository {
             return null;
         }
     }
+    
+    public List<Tarea> selectById(int id) {
+
+        try {
+
+            tareas.clear();
+
+            cn = new ConexionJDBC().getConnection();
+
+            String select = "SELECT * from tareas where pk_id_tarea = ?";
+
+            PreparedStatement ps = cn.prepareStatement(select);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                tareas.add(
+                        new Tarea(
+                                rs.getInt(1),
+                                rs.getString(2),
+                                LocalDate.of(
+                                        rs.getDate(3).getYear() + 1900,
+                                        rs.getDate(3).getMonth() + 1,
+                                        rs.getDate(3).getDate()),
+                                rs.getBoolean(4),
+                                null
+                        )
+                );
+            }
+
+            cn.close();
+            rs.close();
+            ps.close();
+
+            return tareas;
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
 
     public void updateCumplida(int idTarea) {
 

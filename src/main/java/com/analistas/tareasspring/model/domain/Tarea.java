@@ -8,6 +8,7 @@ package com.analistas.tareasspring.model.domain;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -17,7 +18,10 @@ public class Tarea {
     
     private int id;
     private String descripcion;
+    
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fecha;
+    
     private boolean cumplida;
     private Usuario usuario;
     

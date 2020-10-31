@@ -9,6 +9,7 @@ import com.analistas.tareasspring.model.domain.Tarea;
 import com.analistas.tareasspring.model.domain.Usuario;
 import com.analistas.tareasspring.model.service.TareaServiceImpl;
 import com.analistas.tareasspring.model.service.UsuarioServiceImpl;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,10 +44,32 @@ public class TareaController {
     //@RequestMapping(value="/form", method = RequestMethod.GET)
     //Alias de RequestMapping tipo GET
     @GetMapping("/form")
-    public String abrirFormulario(Model model) {
+    public String nuevo(Model model) {
         
+        Usuario usuario = usuServ.buscarPorNombre("Jorgito"); //Mamarrachada temporal...
+        
+        Tarea tarea = new Tarea();
+        tarea.setFecha(LocalDate.now());
+        tarea.setUsuario(usuario);
+     
         model.addAttribute("titulo", "Nueva Tarea");
         model.addAttribute("subtitulo", "Completar los Campos:");
+        model.addAttribute("tarea", tarea);
+        
+        return "form";
+    }
+    
+    @GetMapping("/form/{id}")
+    public String editar(@PathVariable int id, Model model) {
+        
+        Usuario usuario = usuServ.buscarPorNombre("Jorgito");  //Mamarrachada temporal...
+    
+        Tarea tarea = tarServ.buscarPorId(id);
+        tarea.setUsuario(usuario);
+        
+        model.addAttribute("titulo", "Modificar Tarea");
+        model.addAttribute("subtitulo", "Editar los Campos:");
+        model.addAttribute("tarea", tarea);
         
         return "form";
     }
