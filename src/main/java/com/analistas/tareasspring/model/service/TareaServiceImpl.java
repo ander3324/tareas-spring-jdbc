@@ -29,8 +29,8 @@ public class TareaServiceImpl implements ITareaService{
         //Si es modificación...
         if(tarea.getId() != 0)
             repo.updateTarea(tarea);
-//        else
-//            repo.insertTarea(tarea);
+        else
+            repo.insertTarea(tarea);
 
     }
 

@@ -163,4 +163,29 @@ public class TareaRepository {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    
+    public void insertTarea(Tarea tarea) {
+
+        try {
+
+            cn = new ConexionJDBC().getConnection();
+
+            String update = "insert into tareas (descripcion, fecha, fk_id_usuario) "
+                    + " values(?, ?, ?)";
+
+            PreparedStatement ps = cn.prepareStatement(update);
+            ps.setString(1, tarea.getDescripcion());
+            ps.setDate(2, Date.valueOf(tarea.getFecha()));
+            ps.setInt(3, tarea.getUsuario().getId());
+
+            ps.execute();
+
+            cn.close();
+            ps.close();
+
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 }
